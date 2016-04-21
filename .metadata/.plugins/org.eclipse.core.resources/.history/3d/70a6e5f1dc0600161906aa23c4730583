@@ -1,0 +1,57 @@
+package com.crunchify.controller;
+
+import java.io.IOException;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class CrunchifyHelloWorld {
+	String result;
+	RestTemplate restTemplate = new RestTemplate();
+
+	@RequestMapping(value = "/ping", method = RequestMethod.GET)
+	public String ping() throws IOException {
+		return "data";
+	}
+
+	@RequestMapping("/intellibo/ressource/{id}")
+	public String getSource(@PathVariable("id") int id) throws IOException {
+		String data2 = "";
+		final String uri = "http://172.19.31.20:8080/intellibo-marklogic/v2/data/personnes/" + id + "/adresse";
+
+		UniteSource uniteSource = restTemplate.getForObject(uri, UniteSource.class);
+		System.out.println(uniteSource.getEmail().getUrl());
+		for (int i = 0; i < uniteSource.getAdresses().size(); i++) {
+			data2 += uniteSource.getAdresses().get(i).getLigne2() + "    ";
+			System.out.println("adress --> " + uniteSource.getAdresses().get(i).getLigne2());
+		}
+		System.out.println(uniteSource.getAdresses().size());
+		return data2;
+	}	//String result = rest.postForObject("http://localhost:8080/soa-server/user/", map, String.class);
+	
+
+	/*
+	 * @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating User " + user.getName());
+ 
+        if (userService.isUserExist(user)) {
+            System.out.println("A User with name " + user.getName() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+ 
+        userService.saveUser(user);
+ 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+	 * 
+	 * */
+}

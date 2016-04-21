@@ -1,0 +1,7 @@
+package com.crunchify.controller;
+
+@Data
+public class Adresse {
+	long id;
+	String ligne2;
+}

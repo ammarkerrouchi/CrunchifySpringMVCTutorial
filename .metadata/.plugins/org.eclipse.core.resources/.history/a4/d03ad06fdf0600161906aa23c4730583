@@ -1,0 +1,17 @@
+package com.crunchify.controller;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+
+public class SearchParameters {
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	@Data
+	@JsonProperty("email")
+	private Email email;
+	@JsonProperty("adresses")
+	private List<Adresse> adresses;
+}

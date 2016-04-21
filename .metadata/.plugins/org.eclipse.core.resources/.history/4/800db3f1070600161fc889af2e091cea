@@ -1,0 +1,36 @@
+package com.crunchify.controller;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+/*
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@AllArgsConstructor
+public class UniteSource {
+	private Email email;
+	private int id;
+	private String url;
+}*/
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UniteSource {	
+    private String prenom;
+    private String nom;
+    
+    public String getprenom(){
+        return this.prenom;
+    }
+
+    public void setprenom(String stuff){
+        this.prenom = stuff;
+    }
+    
+    public String getnom(){
+        return this.nom;
+    }
+
+    public void setnom(String _nom){
+        this.nom = _nom;
+    }
+}

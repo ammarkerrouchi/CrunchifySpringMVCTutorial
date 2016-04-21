@@ -1,0 +1,18 @@
+package com.crunchify.controller;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+public class SearchParameters {
+	@JsonProperty("max_result")
+	int max_results = 10;
+	int offset;
+	private List<personne_statuses> personne_statuses;
+	String query;
+	}

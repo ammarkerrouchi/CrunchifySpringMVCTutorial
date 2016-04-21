@@ -1,0 +1,26 @@
+package com.crunchify.controller;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+/*
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@AllArgsConstructor
+public class UniteSource {
+	private Email email;
+	private int id;
+	private String url;
+}*/
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+public class UniteSource {
+	@JsonProperty("email")
+	private Email email;
+	@JsonProperty("adresses")
+	private List<Adresses> adresses;
+}
+}

@@ -1,0 +1,55 @@
+package com.crunchify.controller;
+
+import java.io.IOException;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+	
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class CrunchifyHelloWorld {
+	String result;
+	RestTemplate restTemplate = new RestTemplate();
+
+	@RequestMapping(value = "/ping", method = RequestMethod.GET)
+	public String ping() throws IOException {
+		return "data";
+	}
+
+	@RequestMapping("/intellibo/ressource/{id}")
+	public String getSource(@PathVariable("id") int id) throws IOException {
+		String data2 = "";
+		SearchParameters param = new SearchParameters();
+		final String uri = "http://172.19.31.20:8080/intellibo-marklogic/v2/data/personnes/" + id + "/adresse";
+		final String uri2 = "http://172.19.31.20:8080/intellibo-marklogic/v2/search/account/001D000000rfR6GIAU/personnes";
+		param.setOffset(0);
+		param.setQuery("tf1");
+		param.getPersonne_statuses().add("ACTIVE");
+		UniteSource uniteSource  = restTemplate.postForObject(uri2, param, UniteSource.class);
+		System.out.println(uniteSource.getTotal());
+		return data2;
+	}
+	/*
+	 * @RequestMapping(value = "/users/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating User " + user.getName());
+ 
+        if (userService.isUserExist(user)) {
+            System.out.println("A User with name " + user.getName() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+ 
+        userService.saveUser(user);
+ 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+	 * 
+	 * */
+}
